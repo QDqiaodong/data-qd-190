@@ -1,0 +1,9 @@
+{
+  "board": ["2c","3d","4h","8s","9c"], "button_seat": 0,
+  "players": [
+    {"id":"ace","seat":0,"committed":100,"folded":false,"hole":["Ah","As"]},
+    {"id":"king","seat":1,"committed":50,"folded":false,"hole":["Kh","Ks"]},
+    {"id":"straight","seat":2,"committed":20,"folded":false,"hole":["5c","6c"]},
+    {"id":"fold","seat":3,"committed":70,"folded":true,"hole":[]}
+  ]
+}
