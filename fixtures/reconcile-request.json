@@ -1,0 +1,22 @@
+{
+  "left": [
+    {"id": "L0", "seq": 1, "ts": 90, "tag": "K", "hand": {"board": ["2c", "3d", "4h", "8s", "9c"], "button_seat": 0, "players": [{"id": "A", "seat": 0, "committed": 5, "folded": false, "hole": ["5c", "6c"]}, {"id": "B", "seat": 1, "committed": 5, "folded": false, "hole": ["Kh", "Ks"]}]}},
+    {"id": "L1", "seq": 2, "ts": 100, "tag": "X", "hand": {"board": ["2c", "3d", "4h", "8s", "9c"], "button_seat": 0, "players": [{"id": "A", "seat": 0, "committed": 5, "folded": false, "hole": ["5c", "6c"]}, {"id": "B", "seat": 1, "committed": 5, "folded": false, "hole": ["Kh", "Ks"]}]}},
+    {"id": "L2", "seq": 3, "ts": 110, "tag": "Y", "hand": {"board": ["2c", "3d", "4h", "8s", "9c"], "button_seat": 0, "players": [{"id": "A", "seat": 0, "committed": 5, "folded": false, "hole": ["5c", "6c"]}, {"id": "B", "seat": 1, "committed": 5, "folded": false, "hole": ["Kh", "Ks"]}]}},
+    {"id": "L3", "seq": 4, "ts": 120, "tag": "Z", "hand": {"board": ["2c", "3d", "4h", "8s", "9c"], "button_seat": 0, "players": [{"id": "A", "seat": 0, "committed": 5, "folded": false, "hole": ["5c", "6c"]}, {"id": "B", "seat": 1, "committed": 5, "folded": false, "hole": ["Kh", "Ks"]}]}},
+    {"id": "L4", "seq": 5, "ts": 130, "tag": "W", "hand": {"board": ["2c", "3d", "4h", "8s", "9c"], "button_seat": 0, "players": [{"id": "A", "seat": 0, "committed": 5, "folded": false, "hole": ["5c", "6c"]}, {"id": "B", "seat": 1, "committed": 5, "folded": false, "hole": ["Kh", "Ks"]}]}},
+    {"id": "L5", "seq": 6, "ts": 140, "tag": "V", "hand": {"board": ["2c", "3d", "4h", "8s", "9c"], "button_seat": 0, "players": [{"id": "A", "seat": 0, "committed": 5, "folded": false, "hole": ["5c", "6c"]}, {"id": "B", "seat": 1, "committed": 5, "folded": false, "hole": ["Kh", "Ks"]}]}}
+  ],
+  "right": [
+    {"id": "R0", "seq": 1, "ts": 91, "tag": "K", "net": {"A": 4, "B": -5}},
+    {"id": "R1", "seq": 2, "ts": 99, "tag": "X", "net": {"A": 5, "C": 0}},
+    {"id": "R2a", "seq": 3, "ts": 109, "tag": "Y", "net": {"A": 5, "B": -5}},
+    {"id": "R2b", "seq": 4, "ts": 113, "tag": "Y", "net": {"A": 5, "B": -5}},
+    {"id": "R3", "seq": 5, "ts": 119, "tag": "Z", "net": {"A": 5, "B": -5}},
+    {"id": "R4", "seq": 6, "ts": 133, "tag": "W", "net": {"A": 5, "B": -5}},
+    {"id": "R5", "seq": 7, "ts": 143, "tag": "V", "net": {"A": 5, "B": -5}}
+  ],
+  "clock": {"min_offset": -86400000, "max_offset": 86400000, "tolerance": 1},
+  "anchors": [],
+  "focus_left_id": "L2"
+}

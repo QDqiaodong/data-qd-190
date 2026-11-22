@@ -13,6 +13,7 @@ dependencies = []
 showdown-pots = "showdown_pots.cli:main"
 showdown-ledger = "showdown_pots.ledger_cli:main"
 showdown-audit = "showdown_pots.audit_cli:main"
+showdown-reconcile = "showdown_pots.reconcile_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

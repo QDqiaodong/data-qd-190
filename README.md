@@ -18,9 +18,10 @@ uv pip check --python .venv/bin/python
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/showdown-pots --source fixtures/input.json --output run/report-initial.json
 .venv/bin/showdown-audit --source fixtures/audit-request.json --output run/audit-report.json
+.venv/bin/showdown-reconcile --source fixtures/reconcile-request.json --output run/reconcile-report.json
 ```
 
-实际15项测试通过（原有6项单手测试 + 9项跨手账本测试；账本测试以真实子进程调用 CLI，覆盖跨进程重读）；CLI演示生成JSON，摘要为：
+实际62项测试通过（原有6项单手测试 + 9项跨手账本测试 + 22项残缺牌谱核验测试 + 25项双源对账测试；账本测试以真实子进程调用 CLI，覆盖跨进程重读；对账测试另含输入重排、锚点冲突与输出路径保护）；CLI演示生成JSON，摘要为：
 
 ```json
 {
@@ -58,6 +59,16 @@ showdown-audit --source audit-request.json --output run/audit-report.json
 ```
 
 核验只在单手内完成，不读写跨手账本；每个见证 `source` 都是可直接交给 `showdown-pots` 复算的完整 v1 输入。
+
+## 双源对账
+
+`showdown-reconcile` 对齐同一张教学桌的牌谱端与计分端：整批共用一个整数钟差，找出最大配对数并列出所有能达到它的钟差区间（保留空洞），再只对在两个源里都被唯一确定的同一手给出逐人筹码差异。短码重复、漏手、时钟未同步和净额抄错都按待对账事实处理；锚点冲突是正常的 `no_alignment` 业务结果。字段、匹配规则与验收示例见 [双源对账说明](docs/reconcile.md)。
+
+```sh
+showdown-reconcile --source reconcile-request.json --output run/reconcile-report.json
+```
+
+对账只读本次导出批次，不写跨手账本，也不改变三个旧命令的契约。
 
 ## 当前边界
 
