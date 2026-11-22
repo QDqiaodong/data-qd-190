@@ -21,7 +21,7 @@ uv pip check --python .venv/bin/python
 .venv/bin/showdown-reconcile --source fixtures/reconcile-request.json --output run/reconcile-report.json
 ```
 
-实际62项测试通过（原有6项单手测试 + 9项跨手账本测试 + 22项残缺牌谱核验测试 + 25项双源对账测试；账本测试以真实子进程调用 CLI，覆盖跨进程重读；对账测试另含输入重排、锚点冲突与输出路径保护）；CLI演示生成JSON，摘要为：
+实际83项测试通过（原有6项单手测试 + 9项跨手账本测试 + 22项残缺牌谱核验测试 + 25项双源对账测试 + 21项可撤回样本库测试；账本与样本库测试以真实子进程调用 CLI，覆盖跨进程重读与恢复；对账测试另含输入重排、锚点冲突与输出路径保护；样本库测试另含可见性前后注入故障的恢复边界）；CLI演示生成JSON，摘要为：
 
 ```json
 {
@@ -69,6 +69,18 @@ showdown-reconcile --source reconcile-request.json --output run/reconcile-report
 ```
 
 对账只读本次导出批次，不写跨手账本，也不改变三个旧命令的契约。
+
+## 可撤回教学样本库
+
+`showdown-corpus` 把真实课堂的分池案例整理成离线习题库：私有状态（单个 SQLite 文件）保存不可改写的样本与逐玩家授权，只有整手全部参与者当前同意、且主题内合格样本覆盖至少两张不同来源桌时，该主题的合格样本才进入公开包。公开包是固定路径上的一个完整 JSON 文件（代次、主题到 `{sample_id, digest}` 的映射、摘要到按座位编号结算题的映射），原子换代、可离线核对；撤回即撤下，不承诺匿名、不追收已复制文件。进程在发布中途被杀时用 `recover` 在同一私有状态上恢复一致性，不加代、不回退。字段、授权与门槛规则、回执语义与恢复边界见 [可撤回教学样本库说明](docs/corpus.md)。
+
+```sh
+.venv/bin/showdown-corpus --state run/corpus.db init --public run/dist/package.json
+.venv/bin/showdown-corpus --state run/corpus.db apply --source batch.json
+.venv/bin/showdown-corpus --state run/corpus.db recover
+```
+
+分发端只读固定路径的公开包，不访问私有目录，也不调用维护命令；四个旧命令的契约不变。
 
 ## 当前边界
 
