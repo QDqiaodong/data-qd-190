@@ -17,6 +17,7 @@ uv pip install --offline --python .venv/bin/python --no-build-isolation --no-dep
 uv pip check --python .venv/bin/python
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/showdown-pots --source fixtures/input.json --output run/report-initial.json
+.venv/bin/showdown-audit --source fixtures/audit-request.json --output run/audit-report.json
 ```
 
 实际15项测试通过（原有6项单手测试 + 9项跨手账本测试；账本测试以真实子进程调用 CLI，覆盖跨进程重读）；CLI演示生成JSON，摘要为：
@@ -47,6 +48,16 @@ uv pip check --python .venv/bin/python
 ```
 
 账本状态是单个 SQLite 文件，仅要求单进程顺序操作；每个 `apply`/`release` 都是一次 SQLite 事务，失败不留部分变更。
+
+## 残缺牌谱核验
+
+`showdown-audit` 处理录像被遮挡的单手输入：看不清的牌位以 `{"slot_id", "candidates"}` 给出候选而不是猜测真值。命令枚举所有遵守一副物理牌约束的可行补全，逐池交付已确认（`certified`）或仍有歧义（`ambiguous`）的逐玩家分配，并在预算（0..2 次回看）内给出保证确认全部池的自适应回看决策树；预算不足时 `plan` 为 `null` 但逐池结论与两份分歧见证照常交付。无可行补全是正常结果 `inconsistent`，结构非法才退出 2。字段、决策树规则与验收示例见 [残缺牌谱核验说明](docs/audit.md)。
+
+```sh
+showdown-audit --source audit-request.json --output run/audit-report.json
+```
+
+核验只在单手内完成，不读写跨手账本；每个见证 `source` 都是可直接交给 `showdown-pots` 复算的完整 v1 输入。
 
 ## 当前边界
 

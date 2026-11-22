@@ -1,0 +1,19 @@
+{
+  "hand": {
+    "board": ["2c", "3d", "4h", "8s", "9c"],
+    "button_seat": 0,
+    "players": [
+      {"id": "A", "seat": 0, "committed": 1, "folded": false,
+       "hole": ["5c", {"slot_id": "L", "candidates": ["Kd", "Ac", "6c", "Qd"]}]},
+      {"id": "B", "seat": 1, "committed": 1, "folded": false,
+       "hole": ["Kh", "Ks"]},
+      {"id": "F1", "seat": 2, "committed": 1, "folded": true,
+       "hole": [{"slot_id": "s", "candidates": ["Kd", "Ac"]},
+                {"slot_id": "a", "candidates": ["Kd", "6c"]}]},
+      {"id": "F2", "seat": 3, "committed": 1, "folded": true,
+       "hole": [{"slot_id": "b", "candidates": ["Ac", "Qd"]}, "7h"]}
+    ]
+  },
+  "inspectable": ["s", "a", "b"],
+  "budget": 2
+}
