@@ -1,0 +1,22 @@
+{
+  "start": {
+    "button_seat": 0,
+    "board": ["2c", "3d", "4h", "8s", "9c"],
+    "ante": 1,
+    "min_bet": 10,
+    "players": [
+      {"player_id": "A", "seat": 1, "stack": 101, "hole": ["5c", "6c"]},
+      {"player_id": "B", "seat": 2, "stack": 101, "hole": ["Kh", "Ks"]},
+      {"player_id": "C", "seat": 3, "stack": 15, "hole": ["9d", "9h"]},
+      {"player_id": "D", "seat": 4, "stack": 101, "hole": ["Jc", "Jd"]},
+      {"player_id": "E", "seat": 5, "stack": 21, "hole": ["8c", "8h"]}
+    ]
+  },
+  "actions": [
+    {"player_id": "A", "kind": "raise_to", "to": 10},
+    {"player_id": "B", "kind": "call"},
+    {"player_id": "C", "kind": "raise_to", "to": 14},
+    {"player_id": "D", "kind": "call"},
+    {"player_id": "E", "kind": "raise_to", "to": 20}
+  ]
+}

@@ -21,7 +21,7 @@ uv pip check --python .venv/bin/python
 .venv/bin/showdown-reconcile --source fixtures/reconcile-request.json --output run/reconcile-report.json
 ```
 
-实际83项测试通过（原有6项单手测试 + 9项跨手账本测试 + 22项残缺牌谱核验测试 + 25项双源对账测试 + 21项可撤回样本库测试；账本与样本库测试以真实子进程调用 CLI，覆盖跨进程重读与恢复；对账测试另含输入重排、锚点冲突与输出路径保护；样本库测试另含可见性前后注入故障的恢复边界）；CLI演示生成JSON，摘要为：
+实际120项测试通过（原有6项单手测试 + 9项跨手账本测试 + 22项残缺牌谱核验测试 + 25项双源对账测试 + 21项可撤回样本库测试 + 37项下注回放测试；账本、样本库与回放测试以真实子进程调用 CLI，覆盖跨进程重读与恢复；对账测试另含输入重排、锚点冲突与输出路径保护；样本库测试另含可见性前后注入故障的恢复边界）；CLI演示生成JSON，摘要为：
 
 ```json
 {
@@ -81,6 +81,17 @@ showdown-reconcile --source reconcile-request.json --output run/reconcile-report
 ```
 
 分发端只读固定路径的公开包，不访问私有目录，也不调用维护命令；四个旧命令的契约不变。
+
+## 下注回放
+
+`showdown-replay` 把教学录像的下注动作逐条回放到三条下注街上，给出下一位的可选动作（欠跟、能否过牌、完整加注区间、短额全下目标）；未终局不出推测派彩，真正走到终局才把整手毛投入交给现有 v1 单手结算。检查点是一个自足、带版本的 JSON 对象，不携带既往动作序列，可以复制到没有原始录像的新进程，从同一停点派生多个学生分支；结构正确但不合法的动作只让该分支报告首个错误及其序号，兄弟分支不受影响。检查点的规范编码不超过终端预留的 4096 字节。字段、加注权与短额全下口径、检查点信任边界和验收示例见 [下注回放说明](docs/replay.md)。
+
+```sh
+.venv/bin/showdown-replay --source fixtures/replay-opening.json --output run/replay.json
+.venv/bin/showdown-replay --source branches.json --output run/branches.json
+```
+
+回放只处理单手，不读写跨手账本、对账或样本库，也不改变五个旧命令的契约。
 
 ## 当前边界
 
