@@ -15,11 +15,11 @@ uv venv --offline --python 3.12 .venv
 uv pip install --offline --python .venv/bin/python -r requirements-build.lock
 uv pip install --offline --python .venv/bin/python --no-build-isolation --no-deps .
 uv pip check --python .venv/bin/python
-.venv/bin/python -I -m unittest discover -s tests -v
+.venv/bin/python -m unittest discover -s tests -v
 .venv/bin/showdown-pots --source fixtures/input.json --output run/report-initial.json
 ```
 
-实际6项测试通过；CLI演示生成JSON，摘要为：
+实际15项测试通过（原有6项单手测试 + 9项跨手账本测试；账本测试以真实子进程调用 CLI，覆盖跨进程重读）；CLI演示生成JSON，摘要为：
 
 ```json
 {
@@ -33,6 +33,20 @@ uv pip check --python .venv/bin/python
 ```
 
 输出是原子新建；演示已生成过的同名路径不能重用，复跑请换一个新文件名。非法输入与文件写入错误退出2；业务诊断的表达方式见契约。已经实际核验重复JSON键拒绝、旧结果字节不变、已有符号链接不覆盖。
+
+## 跨手账本
+
+`showdown-ledger` 在同一张教学桌上按玩家 ID 维护本地持久化余额，支持录入、可核验前缀预览、只对已核验前缀结单、不可改写的结单重读以及录入更正后的差额分录。复用原有单手结算，不新增下注规则。用法、字段和示例更正链见 [跨手账本说明](docs/ledger.md)。
+
+```sh
+.venv/bin/showdown-ledger --state run/table.db init --source opening.json
+.venv/bin/showdown-ledger --state run/table.db apply --source edits.json
+.venv/bin/showdown-ledger --state run/table.db preview
+.venv/bin/showdown-ledger --state run/table.db release --request-id R1 --through 2
+.venv/bin/showdown-ledger --state run/table.db read-release --request-id R1
+```
+
+账本状态是单个 SQLite 文件，仅要求单进程顺序操作；每个 `apply`/`release` 都是一次 SQLite 事务，失败不留部分变更。
 
 ## 当前边界
 
