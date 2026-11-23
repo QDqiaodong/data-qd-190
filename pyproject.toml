@@ -16,6 +16,7 @@ showdown-audit = "showdown_pots.audit_cli:main"
 showdown-reconcile = "showdown_pots.reconcile_cli:main"
 showdown-corpus = "showdown_pots.corpus_cli:main"
 showdown-replay = "showdown_pots.replay_cli:main"
+showdown-trace = "showdown_pots.trace_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
